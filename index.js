@@ -1,5 +1,6 @@
 const parser = require("./lib/parsers/postgresql_conf");
 const fs = require("fs");
+const { parsers } = require("./lib");
 const helpText = `patchcfg [-hvpo] file [patch-expr]
 
 Command line switches:
@@ -11,6 +12,8 @@ Command line switches:
 
   file        : The configuration file to patch
   patch-expr  : JavaScript expression for object with values to edit
+
+Available parsers: ${parsers.map((p) => p.name).join(", ")} 
 
 `;
 
