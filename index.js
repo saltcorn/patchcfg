@@ -1,6 +1,5 @@
-const parser = require("./lib/parsers/postgresql_conf");
 const fs = require("fs");
-const { parsers } = require("./lib");
+const { parsers, find_parser_for_file } = require("./lib");
 const helpText = `patchcfg [-hvpo] file [patch-expr]
 
 Command line switches:
@@ -50,7 +49,7 @@ const getArgs = () => {
           i++;
           break;
         case "-p":
-          flags.processor = myArgs[i + 1];
+          flags.parser = myArgs[i + 1];
           i++;
           break;
 
@@ -72,6 +71,34 @@ const patch = (obj, expr) => {
 (async () => {
   const { flags, file, patchExpr } = getArgs();
   if (flags.verbose) console.log({ flags, file, patchExpr });
+  if (!file) {
+    console.error("No file specified");
+    process.exit(1);
+  }
+  if (!fs.existsSync(file)) {
+    console.error(`File not found: ${file}`);
+    process.exit(1);
+  }
+  let parser;
+  if (flags.parser) {
+    parser = parsers.find((p) => p.name === flags.parser);
+    if (!parser) {
+      console.error(
+        `Could not find parser: ${flags.parser}. Available parsers: ${parsers
+          .map((p) => p.name)
+          .join(", ")}`
+      );
+      process.exit(1);
+    }
+  } else {
+    parser = find_parser_for_file(file);
+    if (!parser) {
+      console.error(
+        `Could not guess a parser from file name: ${file}. Specify a parser with -p`
+      );
+      process.exit(1);
+    }
+  }
   const fileStr = fs.readFileSync(file).toString();
   const parsed = parser.parser.from(fileStr);
   if (!patchExpr) {
