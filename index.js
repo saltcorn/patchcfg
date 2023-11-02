@@ -102,7 +102,9 @@ const patch = (obj, expr) => {
   const fileStr = fs.readFileSync(file).toString();
   const parsed = parser.parser.from(fileStr);
   if (!patchExpr) {
-    console.log(parsed);
+    if (parser.parser.pretty && !flags.verbose)
+      console.log(parser.parser.pretty(parsed));
+    else console.log(parsed);
   } else {
     const patched = patch(parsed, patchExpr);
     const output = parser.parser.to(patched);
