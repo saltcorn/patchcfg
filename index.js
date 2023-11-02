@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { parsers, find_parser_for_file } = require("./lib");
+const { parsers, find_parser_for_file, patch } = require("./lib");
 const helpText = `patchcfg [-hvpo] file [patch-expr]
 
 Command line switches:
@@ -65,9 +65,6 @@ const getArgs = () => {
   return { flags, file, patchExpr };
 };
 
-const patch = (obj, expr) => {
-  return obj;
-};
 (async () => {
   const { flags, file, patchExpr } = getArgs();
   if (flags.verbose) console.log({ flags, file, patchExpr });
