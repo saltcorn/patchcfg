@@ -1,0 +1,40 @@
+{
+  "name": "patchcfg",
+  "version": "0.1.0",
+  "description": "Patch configuration files with JSON",
+  "main": "index.js",
+  "repository": "github:saltcorn/patchcfg",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Tom Nielsen",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^18.2.1"
+  },
+  "devDependencies": {
+    "jest": "^27.1.0"
+  },
+  "bin": {
+    "patchcfg": "./index.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "ecmaVersion": 2020
+    },
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "rules": {
+      "no-unused-vars": "off",
+      "no-case-declarations": "off",
+      "no-empty": "warn",
+      "no-fallthrough": "warn"
+    }
+  }
+}
