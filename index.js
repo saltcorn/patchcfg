@@ -1,3 +1,5 @@
+const parser = require("./lib/parsers/postgresql_conf");
+const fs = require("fs");
 const helpText = `patchcfg [-hvpo] file patch-expr
 
 Command line switches:
@@ -60,4 +62,10 @@ const getArgs = () => {
 
 (async () => {
   const { flags, file, patchExpr } = getArgs();
+  if (flags.verbose) console.log({ flags, file, patchExpr });
+  const fileStr = fs.readFileSync(file).toString();
+  if (!patchExpr) {
+    console.log(parser.parser.from(fileStr));
+  } else {
+  }
 })();
