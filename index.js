@@ -97,19 +97,15 @@ const getArgs = () => {
     }
   }
   const fileStr = fs.readFileSync(file).toString();
-  const parsed = parser.parser.from(fileStr);
+  const parsed = parser.from(fileStr);
   if (!patchExpr) {
-    if (parser.parser.pretty && !flags.verbose)
-      console.log(parser.parser.pretty(parsed));
+    if (parser.pretty && !flags.verbose) console.log(parser.pretty(parsed));
     else console.log(parsed);
   } else {
     const patched = patch(parsed, patchExpr);
-    const output = parser.parser.to(patched);
+    const output = parser.to(patched);
     if (flags.verbose)
-      console.log(
-        "output:",
-        parser.parser.pretty ? parser.parser.pretty(parsed) : output
-      );
+      console.log("output:", parser.pretty ? parser.pretty(parsed) : output);
 
     if (flags.outfile === "-") {
       console.log(output);
