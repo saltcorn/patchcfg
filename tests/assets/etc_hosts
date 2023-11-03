@@ -1,0 +1,19 @@
+tomn@Toms-Mac-mini patchcfg % cat /etc/hosts
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+127.0.0.1	localhost
+255.255.255.255	broadcasthost
+::1             localhost
+127.0.0.1 example.com sub.example.com sub1.example.com sub2.example.com sub3.example.com sub4.example.com sub5.example.com sub6.example.com
+127.0.0.1 salt.example.com sub.salt.example.com sub1.salt.example.com sub2.salt.example.com sub3.salt.example.com sub4.salt.example.com sub5.salt.example.com
+127.0.0.1 otherexample.com
+
+192.168.0.28    nuc
+# Added by Docker Desktop
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section
