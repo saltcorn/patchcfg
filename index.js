@@ -105,6 +105,12 @@ const getArgs = () => {
   } else {
     const patched = patch(parsed, patchExpr);
     const output = parser.parser.to(patched);
+    if (flags.verbose)
+      console.log(
+        "output:",
+        parser.parser.pretty ? parser.parser.pretty(parsed) : output
+      );
+
     if (flags.outfile === "-") {
       console.log(output);
     } else if (flags.outfile) {
